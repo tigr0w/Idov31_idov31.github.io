@@ -11,7 +11,7 @@ tags: [C++, windows, kernel, malware-dev]
 
 On the last blog post we had an introduction to kernel developing and what are the difficulties when trying to load a driver and how to bypass it. On this blog, I will write more about callbacks, how to start writing a rootkit and difficulties I encountered during my development of Nidhogg.
 
-As I promised, besides the explanation about rootkits I'll try and write about how blue teams can write a kernel driver that is able to help with detection and prevention.
+As I promised to bring both defensive and offensive point of view, we will create a driver that can be used for both blue and red teams - A process protector driver.
 
 P.S: The name Nidhogg chosen after the nordic dragon that lies underneath Yggdrasil :).
 
@@ -20,9 +20,11 @@ P.S: The name Nidhogg chosen after the nordic dragon that lies underneath Yggdra
 A driver should be (most of the times) controllable from the usermode by some process, an example would be Sysmon - When you change the configuration, turn it off or on it tells its kernel part to stop performing certain operations, work by an updated policy or just shut down it when you decide to unload Sysmon.
 
 As a kernel driver we have two ways to communicate with the usermode: Via DIRECT_IO or via IOCTLs.
-The advantage in DIRECT_IO that it is simple to use and you have more control about how to perform the IO but prone to problems, and the advantage in using IOCTLs is that it is more safe and developer friendly, on this blog series, we will use the IOCTLs approach.
+The advantage in DIRECT_IO that it is more simple to use and you have more control and the advantage of using IOCTLs is that it is more safe and developer friendly.
 
-To understand it better, let's look on an IOCTL structure:
+On this blog series we will use the IOCTLs approach.
+
+To understand what is an IOCTL better, let's look on an IOCTL structure:
 
 ```cpp
 #define MY_IOCTL CTL_CODE(DeviceType, FunctionNumber, Method, Access)
