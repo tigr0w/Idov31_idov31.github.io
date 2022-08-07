@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Lord Of The Ring0 - Part 2 | The beast underneath the root
+title: Lord Of The Ring0 - Part 2 | A tale of routines, IOCTLs and IRPs
 subtitle: Introduction to the Lord of the Ring0 series
 gh-repo: idov31/Nidhogg
 gh-badge: [star, fork, follow]
@@ -335,7 +335,7 @@ Congratulations on writing your very first functional kernel driver!
 
 ## Bonus - Anti dumping
 
-To prevent a process from being dumped all we have to do is just remove more permissions such as PROCESS_VM_READ, PROCESS_DUP_HANDLE and PROCESS_VM_OPERATION. An example can be found in [Nidhogg's ProcessUtils file](https://github.com/Idov31/Nidhogg/blob/master/Nidhogg/ProcessUtils.hpp#L23).
+To prevent a process from being dumped all we have to do is just remove more permissions such as PROCESS_VM_READ, PROCESS_DUP_HANDLE and PROCESS_VM_OPERATION. An example can be found in [Nidhogg's ProcessUtils file](https://github.com/Idov31/Nidhogg/blob/master/Nidhogg/ProcessUtils.hpp#L38).
 
 ## Conclusion
 
