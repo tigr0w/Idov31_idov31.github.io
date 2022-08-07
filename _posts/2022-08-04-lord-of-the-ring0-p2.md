@@ -52,7 +52,7 @@ You can read more about it in [MSDN](https://docs.microsoft.com/en-us/windows-ha
 
 When communicating with the usermode we need to define two more things: The device object and the symbolic link.
 
-Device object is the object that handles the I/O requests and allows us as a usermode program to communicate with the kernel driver.
+[Device object](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_device_object) is the object that handles the I/O requests and allows us as a usermode program to communicate with the kernel driver.
 
 Symbolic link creates a linkage in the GLOBAL?? directory so the DeviceObject will be accesible from the usermode and usually looks like \\??\DriverName.
 
