@@ -5,6 +5,8 @@ subtitle: Writing a ransomware in rust
 gh-repo: idov31/rustomware
 gh-badge: [star, fork, follow]
 tags: [rust, windows, linux, malware-dev]
+readtime: true
+comments: true
 ---
 
 ## Introduction

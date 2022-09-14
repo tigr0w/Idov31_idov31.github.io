@@ -5,6 +5,7 @@ subtitle: A new way to get the active UDP connections.
 gh-repo: idov31/UdpInspector
 gh-badge: [star, fork, follow]
 tags: [network, windows]
+readtime: true
 comments: true
 ---
 

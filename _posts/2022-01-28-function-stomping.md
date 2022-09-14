@@ -5,6 +5,8 @@ subtitle: The research behind FunctionStomping
 gh-repo: idov31/functionstomping
 gh-badge: [star, fork, follow]
 tags: [shellcode-injection, windows]
+readtime: true
+comments: true
 ---
 
 ## Introduction

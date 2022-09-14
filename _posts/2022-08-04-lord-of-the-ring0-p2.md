@@ -5,6 +5,8 @@ subtitle: Introduction to the Lord of the Ring0 series
 gh-repo: idov31/Nidhogg
 gh-badge: [star, fork, follow]
 tags: [C++, windows, kernel, malware-dev]
+readtime: true
+comments: true
 ---
 
 ## Prologue
