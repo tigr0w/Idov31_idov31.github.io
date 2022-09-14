@@ -11,36 +11,31 @@ comments: true
 
 ## Prologue
 
-On the [last blog post](https://idov31.github.io/2022-07-14-lord-of-the-ring0-p1) we had an introduction to kernel developing and what are the difficulties when trying to load a driver and how to bypass it. On this blog, I will write more about callbacks, how to start writing a rootkit and difficulties I encountered during my development of Nidhogg.
+On the [last blog post](https://idov31.github.io/2022-07-14-lord-of-the-ring0-p1), we had an introduction to kernel development and what are the difficulties when trying to load a driver and how to bypass it. In this blog, I will write more about callbacks, how to start writing a rootkit and difficulties I encountered during my development of Nidhogg.
 
-As I promised to bring both defensive and offensive point of view, we will create a driver that can be used for both blue and red teams - A process protector driver.
+As I promised to bring both defensive and offensive points of view, we will create a driver that can be used for both blue and red teams - A process protector driver.
 
-P.S: The name Nidhogg chosen after the nordic dragon that lies underneath Yggdrasil :).
+P.S: The name Nidhogg was chosen after the nordic dragon that lies underneath Yggdrasil :).
 
-## Talking with drivers from usermode 101
+## Talking with drivers from user-mode 101
 
-A driver should be (most of the times) controllable from the usermode by some process, an example would be Sysmon - When you change the configuration, turn it off or on it tells its kernel part to stop performing certain operations, work by an updated policy or just shut down it when you decide to unload Sysmon.
+A driver should be (most of the time) controllable from the user-mode by some process, an example would be Sysmon - When you change the configuration, turn it off or on it tells its kernel part to stop performing certain operations, work by an updated policy or just shut down it when you decide to unload Sysmon. As kernel drivers, we have two ways to communicate with the user mode: Via DIRECT_IO or IOCTLs.The advantage of DIRECT_IO is that it is more simple to use and you have more control and the advantage of using IOCTLs is that it is safer and developer friendly. In this blog series, we will use the IOCTLs approach.
 
-As a kernel driver we have two ways to communicate with the usermode: Via DIRECT_IO or via IOCTLs.
-The advantage in DIRECT_IO that it is more simple to use and you have more control and the advantage of using IOCTLs is that it is more safe and developer friendly.
-
-On this blog series we will use the IOCTLs approach.
-
-To understand what is an IOCTL better, let's look on an IOCTL structure:
+To understand what is an IOCTL better, let's look at an IOCTL structure:
 
 ```cpp
 #define MY_IOCTL CTL_CODE(DeviceType, FunctionNumber, Method, Access)
 ```
 
-The device type indicates what is the type of the device (different types of hardware and software drivers), it doesn't matter much for software drivers what will be the number but the convention is to use 0x8000 for 3rd software drivers like ours.
+The device type indicates what is the type of the device (different types of hardware and software drivers), it doesn't matter much for software drivers will be the number but the convention is to use 0x8000 for 3rd software drivers like ours.
 
-The second parameter indicates the function "index" in our driver, it could be any number but the convention suggests to start from 0x800.
+The second parameter indicates the function "index" in our driver, it could be any number but the convention suggests starting from 0x800.
 
 The method parameter indicates how the input and output should be handled by the driver, it could be either METHOD_BUFFERED or METHOD_IN_DIRECT or METHOD_OUT_DIRECT or METHOD_NEITHER.
 
-The last parameter indicates if the driver accepts the operation (FILE_WRITE_ACCESS) or the driver performs the operation (FILE_READ_ACCESS) or the driver accepts and performs the operation (FILE_ANY_ACCESS).
+The last parameter indicates if the driver accepts the operation (FILE_WRITE_ACCESS) or the driver operates (FILE_READ_ACCESS) or the driver accepts and performs the operation (FILE_ANY_ACCESS).
 
-To use IOCTLs, on the driver's initialization you will need to set a function that will parse an IRP and knows how to handle the IOCTLs, such a function defined as followed:
+To use IOCTLs, on the driver's initialization you will need to set a function that will parse an IRP and knows how to handle the IOCTLs, such a function is defined as followed:
 
 ```cpp
 NTSTATUS MyDeviceControl(
@@ -52,19 +47,13 @@ NTSTATUS MyDeviceControl(
 IRP in a nutshell is a structure that represents an I/O request packet.
 You can read more about it in [MSDN](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_irp).
 
-When communicating with the usermode we need to define two more things: The device object and the symbolic link.
-
-[Device object](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_device_object) is the object that handles the I/O requests and allows us as a usermode program to communicate with the kernel driver.
-
-Symbolic link creates a linkage in the GLOBAL?? directory so the DeviceObject will be accesible from the usermode and usually looks like \\??\DriverName.
+When communicating with the user mode we need to define two more things: The device object and the symbolic link. [The device object](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_device_object) is the object that handles the I/O requests and allows us as a user-mode program to communicate with the kernel driver. The symbolic link creates a linkage in the GLOBAL?? directory so the DeviceObject will be accessible from the user mode and usually looks like \\??\DriverName.
 
 ## Callback Routines
 
-To understand how to use callback routines let's understand WHAT are they.
+To understand how to use callback routines let's understand WHAT are they. The callback routine is a feature that allows kernel drivers to register for certain events, an example would be process operation (such as: getting a handle to process) and affect their result. When a kernel driver registers for an operation, it notifies "I'm interested in the certain event and would like to be notified whenever this event occurs" and then for each time this event occurs the driver is get notified and a function is executed.
 
-Callback routine is a feature that allows to kernel drivers to register for cetain events, an example would be process operation (such as: getting handle to process) and affect their result. When a kernel driver register for an operation, it notifies "I'm interested in the certain event and would like to be notified whenever this event occurs" and then for each time this event occurs the driver is get notified and a function is executed.
-
-One of the most notable way to register for an operation is with the ObRegisterCallbacks function:
+One of the most notable ways to register for an operation is with the ObRegisterCallbacks function:
 
 ```cpp
 NTSTATUS ObRegisterCallbacks(
@@ -88,9 +77,9 @@ typedef struct _OB_OPERATION_REGISTRATION {
 } OB_OPERATION_REGISTRATION, *POB_OPERATION_REGISTRATION;
 ```
 
-Using this callback we are able to register for two types of OperationRegistration: ObjectPreCallback and ObjectPostCallback. The pre callback happens before the operation is executed and the post operation happens after the operation is executed and before the user gets back the output.
+Using this callback we can register for two types of OperationRegistration: ObjectPreCallback and ObjectPostCallback. The pre-callback happens before the operation is executed and the post-operation happens after the operation is executed and before the user gets back the output.
 
-Using ObRegisterCallback you can register for this ObjectTypes of operations (You can see the full list defined in wdm.h):
+Using ObRegisterCallback you can register for this ObjectTypes of operations (You can see the full list defined in WDM.h):
 
 * PsProcessType
 * PsThreadType
@@ -101,7 +90,7 @@ Using ObRegisterCallback you can register for this ObjectTypes of operations (Yo
 * SeTokenObjectType
 * ...
 
-To use this function, you will need to create a function with a unique signature as follows (depends of your needs and if you are using PreOperation or PostOperation):
+To use this function, you will need to create a function with a unique signature as follows (depending on your needs and if you are using PreOperation or PostOperation):
 
 ```cpp
 OB_PREOP_CALLBACK_STATUS PobPreOperationCallback(
@@ -117,12 +106,10 @@ void PobPostOperationCallback(
 
 Now that we understand better what callbacks are we can write our first driver - A kernel driver that protects a process.
 
-## Lets build - Process Protector
+## Let's build - Process Protector
 
-To build a process protector we need to first understand how will it work?
-What we want is a basic protection against any process that attempts to kill our process, the protected process could be our malicious program or our precious Sysmon agent.
-
-To perform killing of a process the process that performs the killing will need a handle with the PROCESS_TERMINATE permissions, and before we said that we could register for certain events like a request for handle to process. So as a driver, you could remove permissions from a handle and return a handle without specific permission which is in our case the PROCESS_TERMINATE permission.
+To build a process protector we need to first understand how will it work.
+What we want is basic protection against any process that attempts to kill our process, the protected process could be our malicious program or our precious Sysmon agent. To perform the killing of a process the process that performs the killing will need a handle with the PROCESS_TERMINATE permissions, and before we said that we could register for certain events like a request for the handle to process. So as a driver, you could remove permissions from a handle and return a handle without specific permission which is in our case the PROCESS_TERMINATE permission.
 
 To start with the development we will need a DriverEntry function:
 
@@ -170,7 +157,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING) {
 
 Before we continue let's explain what's going on, we defined a deviceName with our driver name (Protector) and a symbolic link with the same name (the symName parameter). We also defined an array of operations that we want to register for - In our case it is just the PsProcessType and for each handle creation or handle duplication.
 
-We used this array to finish the registration definition - the number 1 stands for only 1 operation to be registered, the 12345.6879 defines the altitude. An altitude is an unique double number (but using a UNICODE_STRING to represent it) that is used to identify a registration and relate it to a certain driver.
+We used this array to finish the registration definition - the number 1 stands for only 1 operation to be registered, and the 12345.6879 defines the altitude. An altitude is a unique double number (but using a UNICODE_STRING to represent it) that is used to identify registration and relate it to a certain driver.
 
 As you probably noticed, the DriverEntry is "missing" the RegistryPath parameter, to not write UNREFERENCED_PARAMETER(RegistryPath) we can just not write it and it will be unreferenced.
 
@@ -212,20 +199,9 @@ Now, let's do the actual registration and finish the DriverEntry function:
 }
 ```
 
-Using the functions IoCreateDevice and IoCreateSymbolicLink we created a device object and a symbolic link. After we know our driver can be reached from the usermode we registered our callback with ObRegisterCallbacks and defined important major functions such as ProtectorCreateClose (will explain about it soon) and ProtectorDeviceControl to handle the IOCTL.
+Using the functions IoCreateDevice and IoCreateSymbolicLink we created a device object and a symbolic link. After we know our driver can be reached from the user mode we registered our callback with ObRegisterCallbacks and defined important major functions such as ProtectorCreateClose (will explain it soon) and ProtectorDeviceControl to handle the IOCTL.
 
-The ProtectorUnload function is very simple and just does the cleanup like we did if the status wasn't successful:
-
-```cpp
-void ProtectorUnload(PDRIVER_OBJECT DriverObject) {
-    ObUnRegisterCallbacks(regHandle);
-    UNICODE_STRING symName = RTL_CONSTANT_STRING(L"\\??\\Protector");
-    IoDeleteSymbolicLink(&symName);
-    IoDeleteDevice(DriverObject->DeviceObject);
-}
-```
-
-Next thing on the list is to implement the ProtectorCreateClose function. The function is responsible on complete the IRP, since in this driver we don't have multiple device objects and we are not doing much with it we can handle the completion of the relevant IRP in our DeviceControl function and for any other IRP just close it always with a successful status.
+The ProtectorUnload function is very simple and just does the cleanup like we did if the status wasn't successful: The next thing on the list is to implement the ProtectorCreateClose function. The function is responsible on complete the IRP, since in this driver we don't have multiple device objects and we are not doing much with it we can handle the completion of the relevant IRP in our DeviceControl function and for any other IRP just close it always with a successful status.
 
 ```cpp
 NTSTATUS ProtectorCreateClose(PDEVICE_OBJECT, PIRP Irp) {
@@ -236,7 +212,7 @@ NTSTATUS ProtectorCreateClose(PDEVICE_OBJECT, PIRP Irp) {
 }
 ```
 
-The DeviceControl is also fairly simple as we have only one IOCTL to handle:
+The device control is also fairly simple as we have only one IOCTL to handle:
 
 ```cpp
 NTSTATUS ProtectorDeviceControl(PDEVICE_OBJECT, PIRP Irp) {
@@ -269,11 +245,11 @@ NTSTATUS ProtectorDeviceControl(PDEVICE_OBJECT, PIRP Irp) {
 }
 ```
 
-As you noticed, to see the IOCTL, get the input and for more operations in the future we need to use the IRP's stack. I won't go over its entire structure but you can view it in [MSDN](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_io_stack_location). To make it clearer, when using the METHOD_BUFFERED option the input and output buffer is delivered via the SystemBuffer that is located within the IRP's stack.
+As you noticed, to see the IOCTL, get the input and for more operations in the future, we need to use the IRP's stack. I won't go over its entire structure but you can view it in [MSDN](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_io_stack_location). To make it clearer, when using the METHOD_BUFFERED option the input and output buffers are delivered via the SystemBuffer that is located within the IRP's stack.
 
-After we got the stack and verified the IOCTL, we need to check our input because a wrong input handling can cause a BSOD. When the input verification is complemeted all we have to do is just change the protectedPid to the wanted PID.
+After we got the stack and verified the IOCTL, we need to check our input because wrong input handling can cause a BSOD. When the input verification is completed all we have to do is just change the protectedPid to the wanted PID.
 
-With the DeviceControl and the CreateClose functions we can create the last function in the kernel driver - The PreOpenProcessOperation.
+With the DeviceControl and the CreateClose functions, we can create the last function in the kernel driver - The PreOpenProcessOperation.
 
 ```cpp
 OB_PREOP_CALLBACK_STATUS PreOpenProcessOperation(PVOID, POB_PRE_OPERATION_INFORMATION Info) {
@@ -296,11 +272,11 @@ Very simple isn't it? Just logic and the opposite value of the PROCESS_TERMINATE
 
 Now, we have left only one thing to make sure and it is to allow our driver to register for operation registration, **it can be done within the project settings in Visual Studio in the linker command line and just add /integritycheck switch**.
 
-After we finished with the kernel driver part let's go to the usermode part.
+After we finished with the kernel driver part let's go to the user-mode part.
 
-## Protector's Usermode Part
+## Protector's User mode Part
 
-The usermode part is even more simple as we just need to create a handle to the device object and send the wanted PID.
+The user-mode part is even simple as we just need to create a handle for the device object and send the wanted PID.
 
 ```cpp
 #include <iostream>
@@ -337,14 +313,14 @@ int main(int argc, const char* argv[]) {
 
 Congratulations on writing your very first functional kernel driver!
 
-## Bonus - Anti dumping
+## Bonus - Anti-dumping
 
 To prevent a process from being dumped all we have to do is just remove more permissions such as PROCESS_VM_READ, PROCESS_DUP_HANDLE and PROCESS_VM_OPERATION. An example can be found in [Nidhogg's ProcessUtils file](https://github.com/Idov31/Nidhogg/blob/master/Nidhogg/ProcessUtils.hpp#L38).
 
 ## Conclusion
 
-In this blog, we got a better understanding about how to write a driver, how to communicate it and how to use callbacks. In the next blog, we will dive more into this world and learn more new things about kernel development.
+In this blog, we got a better understanding of how to write a driver, how to communicate it and how to use callbacks. In the next blog, we will dive more into this world and learn more new things about kernel development.
 
 I hope that you enjoyed the blog and would love to hear what you think about it!
 
-All The drivers that we wrote in this blog are part of Nidhogg's functionality and you can check it out in the [GitHub repository](https://github.com/idov31/Nidhogg).
+All The drivers that we wrote in this blog are part of Nidhogg's functionality and you can check them out in the [GitHub repository](https://github.com/idov31/Nidhogg).
