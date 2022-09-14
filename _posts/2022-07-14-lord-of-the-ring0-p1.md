@@ -99,7 +99,7 @@ When you finish your driver initialization you need to return a NT_STATUS code, 
 If you tried to copy & paste and run the code above, you might have noticed that it's not working.
 
 By default, windows does not allow to load self-signed drivers, and surely not unsigned drivers, this was created to make sure that a user won't load a malicious driver and by that give to an attacker
-even more pesistence and privileges on the attacked machine.
+even more persistence and privileges on the attacked machine.
 
 Luckily, there is a way to bypass this restriction for testing purposes, to do this run the following command from an elevated cmd:
 
@@ -125,10 +125,10 @@ sc stop DriverName
 
 You might ask yourself now, so how an attacker can deploy a driver? This can be done in several ways:
 
-* The attacker have found / generated a certificate (expiration date doesn't matter).
-* The attacker have allowed testsigning (just like we did now).
-* The attacker have a vulnerable driver with 1day that allows to load drivers.
-* The attacker have a zero day that allows to load drivers.
+* The attacker has found / generated a certificate (expiration date doesn't matter).
+* The attacker has allowed testsigning (just like we did now).
+* The attacker has a vulnerable driver with 1day that allows to load drivers.
+* The attacker has a zero day that allows to load drivers.
 
 Just not so long ago when [Nvidia was breached](https://www.bleepingcomputer.com/news/security/nvidia-data-breach-exposed-credentials-of-over-71-000-employees/) a signature was leaked and used by [threat actors](https://securityonline.info/nvidias-leaked-code-signing-certificate-is-used-by-hackers-to-sign-malware/).
 
