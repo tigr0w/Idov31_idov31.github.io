@@ -4,8 +4,11 @@ title: About me
 subtitle: A little bit about me
 ---
 
-My name is Ido Veltzman, I'm 21 years old, programming for 7+ years and in the cybersecurity field for 4+ years.
-My main interests are reverse engineering and offensive development. I'm always looking for new challenges and new things to learn.
-For further information about me or the projects I'm doing you can visit my [Github](https://github.com/idov31), if you want to contant me you can do it via [Twitter](https://twitter.com/idov31) or via [mail](mailto:idov3110@gmail.com) (I'm more active in Twitter).
+Hey, my name is Ido Veltzman, I'm 22 years old security researcher that also loves to code, research and share my findings online.
+
+You can find here articles about several public projects that I have done regarding injection, obfuscation and other tools to evade detection (mostly for windows os).
+Other than that, you can also find here some other series like Lord Of The Ring0, or educational things like learning Rust through building a ransomware.
+
+Feel free to contact me via [Twitter](https://twitter.com/idov31) or [mail](mailto:idov3110@gmail.com) regarding any of my [projects](https://github.com/idov31) or publications.
 
 Enjoy the blog and have fun!
