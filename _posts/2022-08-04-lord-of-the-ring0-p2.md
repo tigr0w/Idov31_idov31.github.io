@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Lord Of The Ring0 - Part 2 | A tale of routines, IOCTLs and IRPs
-subtitle: Introduction to the Lord of the Ring0 series
+subtitle: Part 2 in Lord of the Ring0 series
 gh-repo: idov31/Nidhogg
 gh-badge: [star, fork, follow]
 tags: [C++, windows, kernel, malware-dev]
