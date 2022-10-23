@@ -1,14 +1,27 @@
-# project
-_site
-.sass-cache
-.vagrant
-.vscode
-
-# general
+*~
+~*
+*.diff
+*.patch
+*.bak
 .DS_Store
-Thumbs.db
-ehthumbs.db
+*.swp
+*.swo
+*.log
+*.log.*
 
+/.vscode/
+
+node_modules/
+.sass-cache/
+
+/.bundle/
+/vendor/bundle
+*.gem
+
+yarn.lock
+package-lock.json
 Gemfile.lock
 
-beautiful-jekyll-theme-*.gem
+_site/
+.jekyll-metadata
+.jekyll-cache/

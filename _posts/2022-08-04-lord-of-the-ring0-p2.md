@@ -11,15 +11,15 @@ comments: true
 
 ## Prologue
 
-On the [last blog post](https://idov31.github.io/2022-07-14-lord-of-the-ring0-p1), we had an introduction to kernel development and what are the difficulties when trying to load a driver and how to bypass it. In this blog, I will write more about callbacks, how to start writing a rootkit and difficulties I encountered during my development of Nidhogg.
+In the [last blog post](https://idov31.github.io/2022-07-14-lord-of-the-ring0-p1), we had an introduction to kernel development and what are the difficulties when trying to load a driver and how to bypass it. In this blog, I will write more about callbacks, how to start writing a rootkit and the difficulties I encountered during my development of Nidhogg.
 
 As I promised to bring both defensive and offensive points of view, we will create a driver that can be used for both blue and red teams - A process protector driver.
 
 P.S: The name Nidhogg was chosen after the nordic dragon that lies underneath Yggdrasil :).
 
-## Talking with drivers from user-mode 101
+## Talking with the user mode 101
 
-A driver should be (most of the time) controllable from the user-mode by some process, an example would be Sysmon - When you change the configuration, turn it off or on it tells its kernel part to stop performing certain operations, work by an updated policy or just shut down it when you decide to unload Sysmon. As kernel drivers, we have two ways to communicate with the user mode: Via DIRECT_IO or IOCTLs.The advantage of DIRECT_IO is that it is more simple to use and you have more control and the advantage of using IOCTLs is that it is safer and developer friendly. In this blog series, we will use the IOCTLs approach.
+A driver should be (most of the time) controllable from the user mode by some process, an example would be Sysmon - When you change the configuration, turn it off or on it tells its kernel part to stop performing certain operations, works by an updated policy or just shut down it when you decide to unload Sysmon. As kernel drivers, we have two ways to communicate with the user mode: Via DIRECT_IO or IOCTLs.The advantage of DIRECT_IO is that it is more simple to use and you have more control and the advantage of using IOCTLs is that it is safer and developer friendly. In this blog series, we will use the IOCTLs approach.
 
 To understand what is an IOCTL better, let's look at an IOCTL structure:
 
@@ -155,7 +155,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING) {
     ...
 ```
 
-Before we continue let's explain what's going on, we defined a deviceName with our driver name (Protector) and a symbolic link with the same name (the symName parameter). We also defined an array of operations that we want to register for - In our case it is just the PsProcessType and for each handle creation or handle duplication.
+Before we continue let's explain what's going on, we defined a deviceName with our driver name (Protector) and a symbolic link with the same name (the symName parameter). We also defined an array of operations that we want to register for - In our case it is just the PsProcessType for each handle creation or handle duplication.
 
 We used this array to finish the registration definition - the number 1 stands for only 1 operation to be registered, and the 12345.6879 defines the altitude. An altitude is a unique double number (but using a UNICODE_STRING to represent it) that is used to identify registration and relate it to a certain driver.
 
