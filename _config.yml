@@ -19,8 +19,8 @@
 text_skin: default # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
 highlight_theme: default # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
 url     : https://idov31.github.io # the base hostname & protocol for your site e.g. https://www.someone.com
-baseurl : # does not include hostname
-title   : # Ido Veltzman - Security Blog
+baseurl : index # does not include hostname
+title   : Ido Veltzman - Security Blog
 description: > # this means to ignore newlines until "Language & timezone"
   The place where I document my research
 
@@ -36,7 +36,7 @@ timezone: IL # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones 
 author:
   type      : # "person" (default), "organization"
   name      : Ido Veltzman
-  url       : https://idov31.github.io
+  url       : # https://idov31.github.io
   avatar    : # path or url of avatar image (square)
   bio       : 
   email     : idov3110@gmail.com

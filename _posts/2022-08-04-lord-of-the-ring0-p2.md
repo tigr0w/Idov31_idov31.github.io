@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Lord Of The Ring0 - Part 2 | A tale of routines, IOCTLs and IRPs
 tags: [C++, windows, kernel, malware-dev]
 ---

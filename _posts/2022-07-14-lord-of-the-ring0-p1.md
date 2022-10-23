@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Lord Of The Ring0 - Part 1 | Introduction
 tags: [C++, windows, kernel, malware-dev]
 ---

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: UdpInspector - Getting active UDP connections without sniffing
 tags: [network, windows]
 ---
