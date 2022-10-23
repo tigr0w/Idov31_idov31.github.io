@@ -1,4 +1,5 @@
 ---
+layout: article
 title: The good, the bad and the stomped function
 tags: [shellcode-injection, windows]
 ---

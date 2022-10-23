@@ -1,4 +1,5 @@
 ---
+layout: article
 title: Rust 101 - Let's write a Rustomware
 tags: [rust, windows, linux, malware-dev]
 ---
