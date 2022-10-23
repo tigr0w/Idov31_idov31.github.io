@@ -1,13 +1,10 @@
 ---
 layout: post
 title: The good, the bad and the stomped function
-subtitle: The research behind FunctionStomping
-gh-repo: idov31/functionstomping
-gh-badge: [star, fork, follow]
 tags: [shellcode-injection, windows]
-readtime: true
-comments: true
 ---
+
+[![star](https://img.shields.io/badge/star-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/FunctionStomping) [![fork](https://img.shields.io/badge/fork-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/FunctionStomping/fork) [![follow](https://img.shields.io/badge/follow-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31)
 
 ## Introduction
 

@@ -1,13 +1,10 @@
 ---
 layout: post
 title: Lord Of The Ring0 - Part 2 | A tale of routines, IOCTLs and IRPs
-subtitle: Part 2 in Lord of the Ring0 series
-gh-repo: idov31/Nidhogg
-gh-badge: [star, fork, follow]
 tags: [C++, windows, kernel, malware-dev]
-readtime: true
-comments: true
 ---
+
+[![star](https://img.shields.io/badge/star-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/Nidhogg) [![fork](https://img.shields.io/badge/fork-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/Nidhogg/fork) [![follow](https://img.shields.io/badge/follow-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31)
 
 ## Prologue
 

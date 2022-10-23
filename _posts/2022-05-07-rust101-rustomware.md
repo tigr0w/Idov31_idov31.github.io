@@ -1,17 +1,14 @@
 ---
 layout: post
 title: Rust 101 - Let's write a Rustomware
-subtitle: Writing ransomware in rust
-gh-repo: idov31/rustomware
-gh-badge: [star, fork, follow]
 tags: [rust, windows, linux, malware-dev]
-readtime: true
-comments: true
 ---
+
+[![star](https://img.shields.io/badge/star-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/rustomware) [![fork](https://img.shields.io/badge/fork-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/rustomware/fork) [![follow](https://img.shields.io/badge/follow-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31)
 
 ## Introduction
 
-When I first heard about Rust, my first reaction was "Why?". The language looked to me as a "wannabe" to C and I didn't understand why it is so popular. I started to read more and more about this language and began to like it. To challenge myself, I decided to write [FunctionStomping](https://github.com/idov31/FunctionStomping) in Rust. Later on, I ran into trickster0's amazing repository [OffensiveRust](https://github.com/trickster0/OffensiveRust) and that gave me more motivation to learn Rust. Nowadays I'm creating a unique C2 framework written (mostly) in Rust. If you are familiar with Rust, you can skip to Part 2 below.
+When I first heard about Rust, my first reaction was "Why?". The language looked to me as a "wannabe" to C and I didn't understand why it is so popular. I started to read more and more about this language and began to like it. To challenge myself, I decided to write [rustomware](https://github.com/idov31/rustomware) in Rust. Later on, I ran into trickster0's amazing repository [OffensiveRust](https://github.com/trickster0/OffensiveRust) and that gave me more motivation to learn Rust. Nowadays I'm creating a unique C2 framework written (mostly) in Rust. If you are familiar with Rust, you can skip to Part 2 below.
 
 The whole code for this blog post is available on my [GitHub](https://github.com/idov31/rustomware) :).
 
