@@ -36,7 +36,7 @@ timezone: IL # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones 
 author:
   type      : # "person" (default), "organization"
   name      : Ido Veltzman
-  url       : # https://idov31.github.io
+  url       : https://idov31.github.io
   avatar    : # path or url of avatar image (square)
   bio       : 
   email     : idov3110@gmail.com
