@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Rust 101 - Let's write a Rustomware
+title: Rust 101 - Let's write Rustomware
 tags: [rust, windows, linux, malware-dev]
 ---
 
@@ -46,7 +46,7 @@ To build our new program, we will use the following command:
 cargo build
 ```
 
-Our executable will be in the target directory (because we didn't use the release flag so it will be in debugging) and will be called rustomware.exe. You'll notice that there are a few new files and directories - the Cargo.lock file, and many files under the target directory. I won't elaborate about them here but in general the Cargo.lock file contains the dependencies of the project in a format that can be used by Cargo to build the project. **THERE IS NO NEED TO EDIT THOSE FILES**. In the target directory, we will have the modules themselves, the executable and the PDB file. After we learned a bit about Rust, we can dive into coding our ransomware.
+Our executable will be in the target directory (because we didn't use the release flag so it will be in debugging) and will be called rustomware.exe. You'll notice that there are a few new files and directories - the Cargo.lock file, and many files under the target directory. I won't elaborate on them here but in general the Cargo.lock file contains the dependencies of the project in a format that can be used by Cargo to build the project. **THERE IS NO NEED TO EDIT THOSE FILES**. In the target directory, we will have the modules themselves, the executable and the PDB file. After we learned a bit about Rust, we can dive into coding our ransomware.
 
 ## Part 2 - Iterating the target folder
 
@@ -152,7 +152,7 @@ fs::write(readme_path, ransom_message).unwrap();
 As you saw, we can just save it to a file and if we want to do any changes just change the README file and recompile, no code editing is required.
 
 Result:
-<img src="../assets/img/rust101-rustsomware/encrypted_files.png" />
+![result](https://idov31.github.io/assets/img/rust101-rustsomware/encrypted_files.png)
 
 ## Conclusion
 
