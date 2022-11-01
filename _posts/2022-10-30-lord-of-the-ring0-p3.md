@@ -1,4 +1,5 @@
 ---
+layout: article
 title: Lord Of The Ring0 - Part 3 | Sailing to the land of the user (and debugging the ship)
 tags: [C++, windows, kernel, malware-dev]
 ---
