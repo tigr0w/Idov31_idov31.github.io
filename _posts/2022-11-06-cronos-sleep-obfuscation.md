@@ -1,8 +1,10 @@
 ---
 layout: article
 title: timeout /t 31 && start evil.exe
-tags: [C++, windows, kernel, malware-dev]
+tags: [C++, windows, malware-dev]
 ---
+
+[![star](https://img.shields.io/badge/star-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/Cronos) [![fork](https://img.shields.io/badge/fork-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31/Cronos/fork) [![follow](https://img.shields.io/badge/follow-100000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/Idov31)
 
 ## Prologue
 
