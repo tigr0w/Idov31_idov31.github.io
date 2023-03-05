@@ -8,7 +8,7 @@ tags: [C++, windows, kernel, malware-dev]
 
 ## Prologue
 
-In the [last blog post](https://idov31.github.io/2022-07-14-lord-of-the-ring0-p1), we had an introduction to kernel development and what are the difficulties when trying to load a driver and how to bypass it. In this blog, I will write more about callbacks, how to start writing a rootkit and the difficulties I encountered during my development of Nidhogg.
+In the [last blog post](https://idov31.github.io/2022/07/14/lord-of-the-ring0-p1.html), we had an introduction to kernel development and what are the difficulties when trying to load a driver and how to bypass it. In this blog, I will write more about callbacks, how to start writing a rootkit and the difficulties I encountered during my development of Nidhogg.
 
 As I promised to bring both defensive and offensive points of view, we will create a driver that can be used for both blue and red teams - A process protector driver.
 

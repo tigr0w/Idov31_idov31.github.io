@@ -8,7 +8,7 @@ tags: [C++, windows, kernel, malware-dev]
 
 ## Prologue
 
-In the [last blog post](https://idov31.github.io/2022-08-04-lord-of-the-ring0-p2), we understood what it is a callback routine, how to get basic information from user mode and for the finale created a driver that can block access to a certain process. In this blog, we will dive into two of the most important things there are when it comes to driver development: How to debug correctly, how to create good user-mode communication and what lessons I learned during the development of Nidhogg so far.
+In the [last blog post](https://idov31.github.io/2022/08/04/lord-of-the-ring0-p2.html), we understood what it is a callback routine, how to get basic information from user mode and for the finale created a driver that can block access to a certain process. In this blog, we will dive into two of the most important things there are when it comes to driver development: How to debug correctly, how to create good user-mode communication and what lessons I learned during the development of Nidhogg so far.
 
 This time, there will be no hands-on code writing but something more important - how to solve and understand the problems that pop up when you develop kernel drivers.
 
