@@ -8,7 +8,7 @@ tags: [C++, windows, kernel, malware-dev]
 
 ## Prologue
 
-In the [last blog post](https://idov31.github.io/2022-10-30-lord-of-the-ring0-p3), we learned some debugging concepts, understood what is IOCTL how to handle it and started to learn how to validate the data that we get from the user mode - data that cannot be trusted and a handling mistake can cause a blue screen of death.
+In the [last blog post](https://idov31.github.io/2022/10/30/lord-of-the-ring0-p3), we learned some debugging concepts, understood what is IOCTL how to handle it and started to learn how to validate the data that we get from the user mode - data that cannot be trusted and a handling mistake can cause a blue screen of death.
 
 In this blog post, I'll explain the different types of callbacks and we will write another driver to protect registry keys.
 
