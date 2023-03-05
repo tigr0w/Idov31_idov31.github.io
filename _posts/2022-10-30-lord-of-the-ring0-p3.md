@@ -133,6 +133,5 @@ This time, it was a relatively short blog post but very important for anyone tha
 
 In this blog, we learned how to debug a kernel driver and how to properly exchange data between our kernel driver to the user mode. In the next blog, we will understand the power of callbacks and learn about the different types that are available to us.
 
-I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
-
+I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31), [Telegram](https://t.me/idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
 This blog series is following my learning curve of kernel mode development and if you like this blog post you can check out Nidhogg on [GitHub](https://github.com/idov31/Nidhogg).

@@ -142,4 +142,5 @@ And you can check out the following repositories for drivers examples:
 
 This blog post is maybe short but is the start of the coming series of blog posts about kernel drivers and rootkits specifically. Another one, more detailed, will come out soon!
 
-As always feel free to check out my [GitHub](https://github.com/idov31) and for any questions feel free to ask me on [Twitter](https://twitter.com/idov31).
+I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31), [Telegram](https://t.me/idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
+This blog series is following my learning curve of kernel mode development and if you like this blog post you can check out Nidhogg on [GitHub](https://github.com/idov31/Nidhogg).

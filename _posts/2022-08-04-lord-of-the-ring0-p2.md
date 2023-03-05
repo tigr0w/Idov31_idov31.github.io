@@ -318,6 +318,5 @@ To prevent a process from being dumped all we have to do is just remove more per
 
 In this blog, we got a better understanding of how to write a driver, how to communicate it and how to use callbacks. In the next blog, we will dive more into this world and learn more new things about kernel development.
 
-I hope that you enjoyed the blog and would love to hear what you think about it!
-
-All The drivers that we wrote in this blog are part of Nidhogg's functionality and you can check them out in the [GitHub repository](https://github.com/idov31/Nidhogg).
+I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31), [Telegram](https://t.me/idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
+This blog series is following my learning curve of kernel mode development and if you like this blog post you can check out Nidhogg on [GitHub](https://github.com/idov31/Nidhogg).
