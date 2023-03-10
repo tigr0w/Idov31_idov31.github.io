@@ -14,7 +14,7 @@ In this blog post, I'll explain the different types of callbacks and we will wri
 
 ## Kernel Callbacks
 
-We started to talk about this subject in the 2nd part, so if you haven't read it yet read it [here](https://idov31.github.io/2022-08-04-lord-of-the-ring0-p2) and come back as this blog is based on the knowledge you have learned in the previous ones.
+We started to talk about this subject in the 2nd part, so if you haven't read it yet read it [here](https://idov31.github.io/2022/08/04/lord-of-the-ring0-p2.html) and come back as this blog is based on the knowledge you have learned in the previous ones.
 
 For starters, let's see what type of callbacks we're going to learn about today:
 
