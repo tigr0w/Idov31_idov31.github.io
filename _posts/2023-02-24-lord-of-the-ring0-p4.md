@@ -333,7 +333,8 @@ You can see a full implementation of the different registry operations handling 
 ## Conclusion
 
 In this blog, we learned about the different types of kernel callbacks and created our registry protector driver.
-In the next blog, we will learn what kernel R/W primitives mean and how we can use that to execute code, deepen our knowledge of interacting with the user mode and write a simple driver that can perform AMSI bypass to apply this knowledge.
+
+In the next blog, we will learn two common hooking methods (IRP Hooking and SSDT Hooking) and two different injection techniques from the kernel to the user mode for both shellcode and DLL (APC and CreateThread) with code snippets and examples from Nidhogg.
 
 I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31), [Telegram](https://t.me/idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
 This blog series is following my learning curve of kernel mode development and if you like this blog post you can check out Nidhogg on [GitHub](https://github.com/idov31/Nidhogg).
