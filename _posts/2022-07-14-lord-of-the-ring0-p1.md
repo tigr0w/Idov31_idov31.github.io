@@ -8,9 +8,9 @@ tags: [C++, windows, kernel, malware-dev]
 
 ## Introduction
 
-This blog post series isn't a thing I normally do, this will be more like a journey that I document during the development of my project [Nidhogg](https://github.com/idov31/Nidhogg). In this series of blogs (which I don't know how long will it be), I'll write about difficulties I encountered while I'm developing Nidhogg and tips & tricks for everyone that wants to start creating a stable kernel mode driver in 2022.
+This blog post series isn't a thing I normally do, this will be more like a journey that I document during the development of my project [Nidhogg](https://github.com/idov31/Nidhogg). In this series of blogs (which I don't know how long will it be), I'll write about difficulties I encountered while developing Nidhogg and tips & tricks for everyone who wants to start creating a stable kernel mode driver in 2022.
 
-This series will be about WDM type of kernel drivers, developing in VS2019. To install it, you can follow the guide in [MSDN](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk). I highly recommend for you test EVERYTHING in a virtual machine to avoid crashing your computer.
+This series will be about WDM type of kernel drivers, developed in VS2019. To install it, you can follow the guide in [MSDN](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk). I highly recommend that you test EVERYTHING in a virtual machine to avoid crashing your computer.
 
 Without further delays - Let's start!
 
@@ -21,7 +21,7 @@ The first question you might ask yourself is: How can kernel driver help me in 2
 From a red team perspective, I think that there are several things that a kernel driver can give that user mode can't.
 
 * Being an efficient backdoor with extremely evasive persistency.
-* Do highly privileged operations without the dependency of LPE exploit or privileged user.
+* Do highly privileged operations without the dependency of LPE exploit or privileged users.
 * Easily evade AV / EDR hooks.
 * Be able to hide your implant without suspicious user-mode hooks.
 
@@ -97,10 +97,16 @@ When you finish your driver initialization you need to return an NT_STATUS code,
 
 If you tried to copy & paste and run the code above, you might have noticed that it's not working.
 
-By default, windows do not allow to load of self-signed drivers, and surely not unsigned drivers, this was created to make sure that a user won't load a malicious driver and by that give an attacker
+By default, Windows does not allow loading self-signed drivers, and surely not unsigned drivers, this was created to make sure that a user won't load a malicious driver and by that give an attacker
 even more persistence and privileges on the attacked machine.
 
-Luckily, there is a way to bypass this restriction for testing purposes, to do this run the following command from an elevated cmd: After that restart, your computer and you should be able to load the driver.
+Luckily, there is a way to bypass this restriction for testing purposes, to do this run the following command from an elevated cmd:
+
+```sh
+bcdedit /set testsigning on
+```
+
+After that restart, your computer and you should be able to load the driver.
 
 To test it out, you can use [Dbgview](https://docs.microsoft.com/en-us/sysinternals/downloads/debugview) to see the output (don't forget to compile to debug to see the KdPrint's output).
 To load the driver, you can use the following command:
@@ -116,11 +122,11 @@ And to unload it:
 sc stop DriverName
 ```
 
-You might ask yourself now, so how an attacker can deploy a driver? This can be done in several ways:
+You might ask yourself now, how an attacker can deploy a driver? This can be done in several ways:
 
-* The attacker has found/generated a certificate (expiration date doesn't matter).
+* The attacker has found/generated a certificate (the expiration date doesn't matter).
 * The attacker has allowed test signing (just like we did now).
-* The attacker has a vulnerable driver with 1day that allows loading drivers.
+* The attacker has a vulnerable driver with 1-day that allows loading drivers.
 * The attacker has a zero-day that allows load drivers.
 
 Just not so long ago when [Nvidia was breached](https://www.bleepingcomputer.com/news/security/nvidia-data-breach-exposed-credentials-of-over-71-000-employees/) a signature was leaked and used by [threat actors](https://securityonline.info/nvidias-leaked-code-signing-certificate-is-used-by-hackers-to-sign-malware/).
@@ -140,7 +146,7 @@ And you can check out the following repositories for drivers examples:
 
 ## Conclusion
 
-This blog post is maybe short but is the start of the coming series of blog posts about kernel drivers and rootkits specifically. Another one, more detailed, will come out soon!
+This blog post may be short but is the start of the coming series of blog posts about kernel drivers and rootkits specifically. Another one, more detailed, will come out soon!
 
 I hope that you enjoyed the blog and I'm available on [Twitter](https://twitter.com/Idov31), [Telegram](https://t.me/idov31) and by [Mail](mailto:idov3110@gmail.com) to hear what you think about it!
 This blog series is following my learning curve of kernel mode development and if you like this blog post you can check out Nidhogg on [GitHub](https://github.com/idov31/Nidhogg).
