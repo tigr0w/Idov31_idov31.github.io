@@ -14,7 +14,7 @@ In this blog post, I'll explain two common hooking methods (IRP Hooking and SSDT
 
 ## IRP Hooking
 
-**Side note: This topic (and more) was also covered in my talk ["(Lady|)Lord Of The Ring0"](https://www.youtube.com/watch?v=CVJmGfElqw0) - feel free to check that out!**
+Side note: This topic (and more) was also covered in my talk ["(Lady|)Lord Of The Ring0"](https://www.youtube.com/watch?v=CVJmGfElqw0) - feel free to check that out!
 
 ### IRP Reminder
 
