@@ -47,7 +47,7 @@ Several notable IRPs (some of them we used previously in this series) are:
 
 - `IRP_MJ_READ` - Used to handle `Zw/NtReadFile` calls to the driver from either user mode or kernel mode.
 
-- `IRP_MJ_READ` - Used to handle `Zw/NtWriteFile` calls to the driver from either user mode or kernel mode.
+- `IRP_MJ_WRITE` - Used to handle `Zw/NtWriteFile` calls to the driver from either user mode or kernel mode.
 
 ### Implementing IRP Hooking
 
@@ -73,8 +73,9 @@ NTSTATUS InstallNtfsHook(int irpMjFunction) {
 
     switch (irpMjFunction) {
         case IRP_MJ_CREATE: {
-            fGlobals.Callbacks[0].Address = (PVOID)InterlockedExchange64((LONG64*)&ntfsDriverObject->MajorFunction[IRP_MJ_CREATE], (LONG64)HookedNtfsIrpCreate);
-            fGlobals.Callbacks[0].Activated = true;
+            // Saving the original IRP handler into a callback array.
+            Callbacks[0].Address = (PVOID)InterlockedExchange64((LONG64*)&ntfsDriverObject->MajorFunction[IRP_MJ_CREATE], (LONG64)HookedNtfsIrpCreate);
+            Callbacks[0].Activated = true;
             KdPrint((DRIVER_PREFIX "Switched addresses\n"));
             break;
         }
