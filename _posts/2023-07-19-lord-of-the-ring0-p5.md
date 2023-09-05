@@ -39,15 +39,15 @@ DriverObject->MajorFunction[IRP_CODE] = IrpHandler;
 
 Several notable IRPs (some of them we used previously in this series) are:
 
-- `IRP_MJ_DEVICE_CONTROL` - Used to handle communication with the driver from either user mode or kernel mode.
+- `IRP_MJ_DEVICE_CONTROL` - Used to handle communication with the driver.
 
 - `IRP_MJ_CREATE` - Used to handle `Zw/NtOpenFile` calls to the driver.
 
-- `IRP_MJ_CLOSE` - Used to handle (among other things) handle closing to the driver.
+- `IRP_MJ_CLOSE` - Used to handle (among other things) `Zw/NtClose` calls to the driver.
 
-- `IRP_MJ_READ` - Used to handle `Zw/NtReadFile` calls to the driver from either user mode or kernel mode.
+- `IRP_MJ_READ` - Used to handle `Zw/NtReadFile` calls to the driver.
 
-- `IRP_MJ_WRITE` - Used to handle `Zw/NtWriteFile` calls to the driver from either user mode or kernel mode.
+- `IRP_MJ_WRITE` - Used to handle `Zw/NtWriteFile` calls to the driver.
 
 ### Implementing IRP Hooking
 
